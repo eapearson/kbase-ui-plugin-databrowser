@@ -40,7 +40,7 @@ define([
                             div({class: 'col-md-12'}, [
                                 html.bsPanel('Data Browser Widget', addWidget({
                                     config: {},
-                                    widget: databrowserWidgetFactory.make()
+                                    widget: databrowserWidgetFactory.make(config)
                                 }))
                             ])
                         ])
