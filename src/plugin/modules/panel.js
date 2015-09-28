@@ -7,7 +7,7 @@
 define([
     'bluebird',
     'kb_common_html',
-    'kb_common',
+    'kb_common_dom',
     'kb_widget_databrowser'
 ],
     function (Promise, html, DOM, databrowserWidgetFactory) {
