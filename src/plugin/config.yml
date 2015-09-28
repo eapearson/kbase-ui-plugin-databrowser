@@ -15,8 +15,17 @@ source:
             file: panel
         -
             module: kb_widget_databrowser
-            file: "databrowser-widget"
+            file: databrowserWidget
 install:
+    widgets:
+        -
+            module: kb_panel_databrowser
+            id: databrowserPanelWidget
+            type: factory
+        - 
+            module: kb_widget_databrowser
+            id: databrowserWidget
+            type: factory
     routes:
         -
             path: ['databrowser']
