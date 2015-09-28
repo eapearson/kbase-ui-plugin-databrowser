@@ -29,7 +29,7 @@ install:
     routes:
         -
             path: ['databrowser']
-            panelFactory: kb_panel_databrowser
+            widget: databrowserPanelWidget
     menu:
         -
             name: databrowser
