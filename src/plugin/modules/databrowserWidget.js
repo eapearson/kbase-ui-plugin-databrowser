@@ -19,7 +19,7 @@ define([
     'kb_types',
     'datatables_bootstrap'
 ],
-    function ($, Promise, DOM, html, WorkspaceClient, APIUtils, Utils, Narrative, Types) {
+    function ($, Promise, DOM, html, APIUtils, Utils, WorkspaceClient, Narrative, Types) {
         'use strict';
 
         var widget = function (config) {
