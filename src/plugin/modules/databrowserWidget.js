@@ -12,7 +12,7 @@ define([
     'bluebird',
     'kb_common_dom',
     'kb_common_html',
-    'kb_common_utils_api',
+    'kb_common_utilsApi',
     'kb_common_utils',
     'kb_service_workspace',
     'kb_narrative',
