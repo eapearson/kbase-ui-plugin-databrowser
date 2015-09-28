@@ -10,24 +10,23 @@
 define([
     'jquery',
     'bluebird',
-    'kb.runtime',
-    'kb.dom',
-    'kb.html',
-    'kb.service.workspace',
-    'kb.utils.api',
-    'kb.utils',
-    'kb.narrative',
+    'kb_common_dom',
+    'kb_common_html',
+    'kb_common_utils_api',
+    'kb_common_utils',
+    'kb_service_workspace',
+    'kb_narrative',
     'kb_types',
     'datatables_bootstrap'
 ],
-    function ($, Promise, R, DOM, html, WorkspaceClient, APIUtils, Utils, Narrative, Types) {
+    function ($, Promise, DOM, html, WorkspaceClient, APIUtils, Utils, Narrative, Types) {
         'use strict';
 
         var widget = function (config) {
-            var mount, container;
+            var mount, container, runtime = config.runtime;
 
-            var workspaceClient = new WorkspaceClient(R.getConfig('services.workspace.url'), {
-                token: R.getAuthToken()
+            var workspaceClient = new WorkspaceClient(runtime.getConfig('services.workspace.url'), {
+                token: runtime.getService('session').getAuthToken()
             });
 
             var workspaceObjects;
@@ -80,7 +79,7 @@ define([
                     Promise.resolve(workspaceClient.list_workspace_info({
                         showDeleted: 0,
                         excludeGlobal: 1,
-                        owners: [R.getUsername()]
+                        owners: [runtime.getService('session').getUsername()]
                     }))
                         .then(function (data) {
                             var workspaceList = [],

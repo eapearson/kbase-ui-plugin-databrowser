@@ -6,16 +6,15 @@
  */
 define([
     'bluebird',
-    'kb.html',
-    'kb.dom',
-    'kb.runtime',
+    'kb_common_html',
+    'kb_common',
     'kb_widget_databrowser'
 ],
-    function (Promise, html, DOM, R, databrowserWidgetFactory) {
+    function (Promise, html, DOM, databrowserWidgetFactory) {
         'use strict';
 
         function widget(config) {
-            var mount, container;
+            var mount, container, runtime = config.runtime;
 
 
             function render() {
@@ -65,7 +64,7 @@ define([
                     container = DOM.createElement('div');
                     mount.appendChild(container);
                     container.innerHTML = html.flatten(rendered.content);
-                    R.send('app', 'title', rendered.title);
+                    runtime.send('app', 'title', rendered.title);
                     Promise.all(rendered.widgets.map(function (w) {
                         return w.widget.attach(DOM.findById(w.id));
                     }))
