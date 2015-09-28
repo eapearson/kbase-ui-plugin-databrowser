@@ -24,7 +24,8 @@ define([
 
         var widget = function (config) {
             var mount, container, runtime = config.runtime;
-
+            console.log('workspace client');
+            console.log(WorkspaceClient);
             var workspaceClient = new WorkspaceClient(runtime.getConfig('services.workspace.url'), {
                 token: runtime.getService('session').getAuthToken()
             });
