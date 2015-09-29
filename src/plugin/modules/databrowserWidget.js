@@ -45,7 +45,7 @@ define([
                             }
                         };
                         return [
-                            a({href: '#dataview/' + object.info.wsid + '/' + object.info.id}, object.info.name),
+                            a({href: '#dataview/' + object.info.wsid + '/' + object.info.id + '/' + object.info.version}, object.info.name),
                             type.module,
                             a({href: '#spec/type/' + Types.makeTypeId(type)}, type.name),
                             Types.makeVersion(type),
