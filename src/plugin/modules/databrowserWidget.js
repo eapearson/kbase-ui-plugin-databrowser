@@ -9,7 +9,7 @@
 
 define([
     'jquery',
-    'bluebird',
+    'promise',
     'kb_common_dom',
     'kb_common_html',
     'kb_common_apiUtils',
@@ -24,8 +24,6 @@ define([
 
         var widget = function (config) {
             var mount, container, runtime = config.runtime;
-            console.log('workspace client');
-            console.log(runtime.getConfig('services.workspace.url'));
             var workspaceClient = new WorkspaceClient(runtime.getConfig('services.workspace.url'), {
                 token: runtime.getService('session').getAuthToken()
             });

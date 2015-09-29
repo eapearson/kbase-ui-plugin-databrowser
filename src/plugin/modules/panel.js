@@ -5,7 +5,7 @@
  white: true
  */
 define([
-    'bluebird',
+    'promise',
     'kb_common_html',
     'kb_common_dom',
     'kb_widget_databrowser'
@@ -35,7 +35,6 @@ define([
                 return {
                     title: 'Data Browser',
                     content: div({class: 'kb-panel-databrowser'}, [
-                        h1('Data Browser'),
                         div({class: 'row'}, [
                             div({class: 'col-md-12'}, [
                                 html.bsPanel('Data Browser Widget', addWidget({
@@ -64,7 +63,7 @@ define([
                     container = DOM.createElement('div');
                     mount.appendChild(container);
                     container.innerHTML = html.flatten(rendered.content);
-                    runtime.send('app', 'title', rendered.title);
+                    runtime.send('ui', 'setTitle', rendered.title);
                     Promise.all(rendered.widgets.map(function (w) {
                         return w.widget.attach(DOM.findById(w.id));
                     }))
