@@ -86,10 +86,10 @@ define([
                             for (i = 0; i < data.length; i += 1) {
                                 wsInfo = APIUtils.workspace_metadata_to_object(data[i]);
 
-                                if (Narrative.isValid(wsInfo)) {
+                                //if (Narrative.isValid(wsInfo)) {
                                     workspaceList.push(wsInfo.id);
                                     workspaceDb[wsInfo.id] = wsInfo;
-                                }
+                                //}
                             }
 
                             // We should now have the list of recently active narratives.
@@ -106,7 +106,7 @@ define([
                                             info: wsObjectInfo,
                                             narrative: {
                                                 workspaceId: wsObjectInfo.wsid,
-                                                name: workspaceDb[wsObjectInfo.wsid].metadata.narrative_nice_name
+                                                name: workspaceDb[wsObjectInfo.wsid].metadata.narrative_nice_name || 'not a narrative'
                                             }
                                         };
                                     });
