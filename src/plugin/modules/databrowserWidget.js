@@ -77,8 +77,8 @@ define([
                 return new Promise(function (resolve, reject) {
                     Promise.resolve(workspaceClient.list_workspace_info({
                         showDeleted: 0,
-                        excludeGlobal: 0,
-                        owners: [runtime.getService('session').getUsername()]
+                        excludeGlobal: 0
+                        // owners: [runtime.getService('session').getUsername()]
                     }))
                         .then(function (data) {
                             var workspaceList = [],
