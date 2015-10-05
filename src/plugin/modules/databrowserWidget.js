@@ -154,19 +154,7 @@ define([
                      */
                     // DOM.setHTML(container, 'Hi, I am a very simple minded widget.');
 
-                    getData()
-                        .then(function (data) {
-                            var rendered = render(data);
-                            DOM.setHTML(container, rendered.content);
-                            if (rendered.afterAttach) {
-                                rendered.afterAttach();
-                            }
-                            resolve();
-                        })
-                        .catch(function (err) {
-                            reject(err);
-                        })
-                        .done();
+                    
                 });
             }
 
@@ -184,9 +172,15 @@ define([
             }
 
             function detach() {
-                return new Promise(function (resolve) {
-                    DOM.remove(mount, container);
-                    resolve();
+                return Promise.try(function () {
+                    return getData()
+                        .then(function (data) {
+                            var rendered = render(data);
+                            DOM.setHTML(container, rendered.content);
+                            if (rendered.afterAttach) {
+                                rendered.afterAttach();
+                            }                            
+                        });
                 });
             }
 
