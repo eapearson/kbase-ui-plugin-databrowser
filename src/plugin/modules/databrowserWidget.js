@@ -129,25 +129,25 @@ define([
             }
 
             function attach(node) {
-                return new Promise(function (resolve) {
+                return Promise.try(function () {
                     mount = node;
 
                     container = DOM.createElement('div');
                     DOM.append(mount, container);
                     DOM.setHTML(container, html.loading());
-
-                    resolve();
                 });
             }
 
             function start(params) {
-                return new Promise(function (resolve) {
+                return Promise.try(function () {
                     // nothing really to do ...
+                    
                 });
             }
 
             function run(params) {
-                return new Promise(function (resolve) {
+                return Promise.try(function () {
+                    DOM.setHTML(container, 'Loading data ... ' + html.loading());
                     return getData()
                         .then(function (data) {
                             var rendered = render(data);
@@ -160,7 +160,7 @@ define([
             }
 
             function stop() {
-                return new Promise(function (resolve) {
+                return Promise.try(function () {
                     resolve();
                 });
             }
