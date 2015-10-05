@@ -148,8 +148,14 @@ define([
 
             function run(params) {
                 return new Promise(function (resolve) {
-                    DOM.setHTML(container, 'Hi, it is now ' + (new Date()));
-                    resolve();
+                    return getData()
+                        .then(function (data) {
+                            var rendered = render(data);
+                            DOM.setHTML(container, rendered.content);
+                            if (rendered.afterAttach) {
+                                rendered.afterAttach();
+                            }                            
+                        });
                 });
             }
 
@@ -161,14 +167,7 @@ define([
 
             function detach() {
                 return Promise.try(function () {
-                    return getData()
-                        .then(function (data) {
-                            var rendered = render(data);
-                            DOM.setHTML(container, rendered.content);
-                            if (rendered.afterAttach) {
-                                rendered.afterAttach();
-                            }                            
-                        });
+                    mount.removeChild(container);
                 });
             }
 
