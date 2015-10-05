@@ -128,12 +128,6 @@ define([
                 });
             }
 
-            function init(config) {
-                return new Promise(function (resolve) {
-                    resolve();
-                });
-            }
-
             function attach(node) {
                 return new Promise(function (resolve) {
                     mount = node;
@@ -147,14 +141,8 @@ define([
             }
 
             function start(params) {
-                return new Promise(function (resolve, reject) {
-
-                    /* DOC: rendering
-                     * Here we have a simple rendering implementation!
-                     */
-                    // DOM.setHTML(container, 'Hi, I am a very simple minded widget.');
-
-                    
+                return new Promise(function (resolve) {
+                    // nothing really to do ...
                 });
             }
 
@@ -184,20 +172,12 @@ define([
                 });
             }
 
-            function destroy() {
-                return new Promise(function (resolve) {
-                    resolve();
-                });
-            }
-
             return {
-                init: init,
                 attach: attach,
                 start: start,
                 run: run,
                 stop: stop,
-                detach: detach,
-                destroy: destroy
+                detach: detach
             };
         };
 
