@@ -69,9 +69,8 @@ define([
                     afterAttach: function () {
                         $('#' + tableId).dataTable();
                     }
-                }
+                };
             }
-
 
             function getData() {
                 return new Promise(function (resolve, reject) {
@@ -140,8 +139,7 @@ define([
 
             function start(params) {
                 return Promise.try(function () {
-                    // nothing really to do ...
-                    
+                    // nothing really to do ...                    
                 });
             }
 
@@ -161,7 +159,7 @@ define([
 
             function stop() {
                 return Promise.try(function () {
-                    resolve();
+                    // nothing really to do ...
                 });
             }
 
