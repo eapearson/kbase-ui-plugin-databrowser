@@ -16,10 +16,9 @@ define([
     'kb_common_utils',
     'kb_service_workspace',
     'kb_narrative',
-    'kb_types',
     'datatables_bootstrap'
 ],
-    function ($, Promise, DOM, html, APIUtils, Utils, WorkspaceClient, Narrative, Types) {
+    function ($, Promise, DOM, html, APIUtils, Utils, WorkspaceClient, Narrative) {
         'use strict';
 
         var widget = function (config) {
@@ -47,9 +46,9 @@ define([
                         return [
                             a({href: '#dataview/' + object.info.wsid + '/' + object.info.id + '/' + object.info.version}, object.info.name),
                             type.module,
-                            a({href: '#spec/type/' + Types.makeTypeId(type)}, type.name),
-                            Types.makeVersion(type),
-                            Types.getIcon({
+                            a({href: '#spec/type/' + runtime.service('types').makeTypeId(type)}, type.name),
+                            runtime.service('types').makeVersion(type),
+                            runtime.service('types').getIcon({
                                 type: type,
                                 size: 'medium'
                             }).html,
