@@ -80,7 +80,7 @@ define([
                     Promise.resolve(workspaceClient.list_workspace_info({
                         showDeleted: 0,
                         excludeGlobal: 0
-                        // owners: [R.getUsername()]
+                        // owners: [runtime.getService('session').getUsername()]
                     }))
                         .then(function (data) {
                             var workspaceList = [],
@@ -89,9 +89,9 @@ define([
                                 wsInfo = APIUtils.workspace_metadata_to_object(data[i]);
 
                                 //if (Narrative.isValid(wsInfo)) {
-                                //    workspaceList.push(wsInfo.id);
-                                //    workspaceDb[wsInfo.id] = wsInfo;
-                                // }
+                                    workspaceList.push(wsInfo.id);
+                                    workspaceDb[wsInfo.id] = wsInfo;
+                                //}
                             }
 
                             // We should now have the list of recently active narratives.
@@ -108,7 +108,7 @@ define([
                                             info: wsObjectInfo,
                                             narrative: {
                                                 workspaceId: wsObjectInfo.wsid,
-                                                name: workspaceDb[wsObjectInfo.wsid].metadata.narrative_nice_name
+                                                name: workspaceDb[wsObjectInfo.wsid].metadata.narrative_nice_name || 'not a narrative'
                                             }
                                         };
                                     });
