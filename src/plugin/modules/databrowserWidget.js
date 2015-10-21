@@ -12,13 +12,12 @@ define([
     'promise',
     'kb_common_dom',
     'kb_common_html',
-    'kb_common_apiUtils',
+    'kb_service_utils',
     'kb_common_utils',
     'kb_service_workspace',
-    'kb_narrative',
     'datatables_bootstrap'
 ],
-    function ($, Promise, DOM, html, APIUtils, Utils, WorkspaceClient, Narrative) {
+    function ($, Promise, DOM, html, APIUtils, Utils, WorkspaceClient) {
         'use strict';
 
         var widget = function (config) {

@@ -20,16 +20,16 @@ install:
     widgets:
         -
             module: kb_panel_databrowser
-            id: databrowserPanelWidget
+            id: databrowser_panel
             type: factory
         - 
             module: kb_widget_databrowser
-            id: databrowserWidget
+            id: databrowser_widget
             type: factory
     routes:
         -
             path: ['databrowser']
-            widget: databrowserPanelWidget
+            widget: databrowser_panel
     menu:
         -
             name: databrowser

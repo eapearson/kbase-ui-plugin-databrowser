@@ -8,48 +8,30 @@ define([
     'promise',
     'kb_common_html',
     'kb_common_dom',
-    'kb_widget_databrowser'
+    'kb_widget_widgetSet'
 ],
-    function (Promise, html, DOM, databrowserWidgetFactory) {
+    function (Promise, html, DOM, WidgetSet) {
         'use strict';
 
         function widget(config) {
-            var mount, container, runtime = config.runtime;
-
+            var mount, container, runtime = config.runtime,
+                widgetSet = WidgetSet.make({runtime: runtime}),
+                div = html.tag('div');
 
             function render() {
-                var h1 = html.tag('h1'),
-                    div = html.tag('div');
-
-                var widgets = [];
-
-                function addWidget(def) {
-                    var id = html.genId();
-                    widgets.push({
-                        id: id,
-                        widget: def.widget
-                    });
-                    return div({id: id});
-                }
-
                 return {
                     title: 'Data Browser',
                     content: div({class: 'kb-panel-databrowser'}, [
                         div({class: 'row'}, [
                             div({class: 'col-md-12'}, [
-                                html.bsPanel('Data Browser Widget', addWidget({
-                                    config: {},
-                                    widget: databrowserWidgetFactory.make(config)
-                                }))
+                                html.bsPanel('Data Browser Widget', div({id: widgetSet.addWidget('databrowser_widget')}))
                             ])
                         ])
-                    ]),
-                    widgets: widgets
+                    ])
                 };
             }
 
             var rendered = render();
-
 
             // Widget API
             function init() {
@@ -58,99 +40,40 @@ define([
                 });
             }
             function attach(node) {
-                return new Promise(function (resolve, reject) {
+                return Promise.try(function () {
                     mount = node;
                     container = DOM.createElement('div');
                     mount.appendChild(container);
                     container.innerHTML = html.flatten(rendered.content);
                     runtime.send('ui', 'setTitle', rendered.title);
-                    Promise.all(rendered.widgets.map(function (w) {
-                        return w.widget.attach(DOM.findById(w.id));
-                    }))
-                        .then(function () {
-                            resolve();
-                        })
-                        .catch(function (err) {
-                            reject(err);
-                        })
-                        .done();
+                    return widgetSet.attach(node);
                 });
             }
             function detach() {
-                return new Promise(function (resolve, reject) {
-                    Promise.all(rendered.widgets.map(function (w) {
-                        return w.widget.detach();
-                    }))
-                        .then(function () {
-                            mount.removeChild(container);
-                            container = null;
-                            resolve();
-                        })
-                        .catch(function (err) {
-                            reject(err);
-                        })
-                        .done();
+                return Promise.try(function () {
+                    mount.removeChild(container);
+                    container = null;
+                    return widgetSet.detach();
                 });
             }
             function start(params) {
-                return new Promise(function (resolve, reject) {
-                    Promise.all(rendered.widgets.map(function (w) {
-                        return w.widget.start(params);
-                    }))
-                        .then(function () {
-                            resolve();
-                        })
-                        .catch(function (err) {
-                            /* TODO: render error here */
-                            console.log('ERROR starting widgets');
-                            console.log(err);
-                            reject(err);
-                        })
-                        .done();
+                return Promise.try(function () {
+                    return widgetSet.start(params);
                 });
             }
             function run(params) {
-                return new Promise(function (resolve, reject) {
-                    Promise.all(rendered.widgets.map(function (w) {
-                        return w.widget.run(params);
-                    }))
-                        .then(function () {
-                            resolve();
-                        })
-                        .catch(function (err) {
-                            reject(err);
-                        })
-                        .done();
+                return Promise.try(function () {
+                    return widgetSet.run(params);
                 });
             }
             function stop() {
-                return new Promise(function (resolve, reject) {
-                    Promise.all(rendered.widgets.map(function (w) {
-                        return w.widget.stop();
-                    }))
-                        .then(function () {
-                            resolve();
-                        })
-                        .catch(function (err) {
-                            reject(err);
-                        })
-                        .done();
+                return Promise.try(function () {
+                    return widgetSet.stop();
                 });
             }
             function destroy() {
-                return new Promise(function (resolve, reject) {
-                    Promise.all(rendered.widgets.map(function (w) {
-                        if (w.widget.destroy) {
-                            return w.widget.destroy();
-                        }
-                    }))
-                        .then(function () {
-                            resolve();
-                        })
-                        .catch(function (err) {
-                            reject(err);
-                        })
-                        .done();
+                return Promise.try(function () {
+                    return widgetSet.destroy();
                 });
             }
 
