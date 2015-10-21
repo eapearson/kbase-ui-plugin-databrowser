@@ -35,8 +35,8 @@ define([
 
             // Widget API
             function init() {
-                return new Promise(function (resolve) {
-                    resolve();
+                 return Promise.try(function () {
+                    return widgetSet.init(config);
                 });
             }
             function attach(node) {

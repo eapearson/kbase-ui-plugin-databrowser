@@ -11,19 +11,19 @@ source:
     ## NB: need to quote file names, otherwise 
     modules:
         -
-            module: kb_panel_databrowser
+            module: kb_databrowser_panel
             file: panel
         -
-            module: kb_widget_databrowser
+            module: kb_databrowser_widget
             file: databrowserWidget
 install:
     widgets:
         -
-            module: kb_panel_databrowser
+            module: kb_databrowser_panel
             id: databrowser_panel
             type: factory
         - 
-            module: kb_widget_databrowser
+            module: kb_databrowser_widget
             id: databrowser_widget
             type: factory
     routes:
