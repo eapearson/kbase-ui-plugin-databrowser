@@ -8,7 +8,7 @@ define([
     'promise',
     'kb_common_html',
     'kb_common_dom',
-    'kb_widget_widgetSet'
+    'kb_common_widgetSet'
 ],
     function (Promise, html, DOM, WidgetSet) {
         'use strict';
