@@ -40,6 +40,6 @@ install:
             menus:
                 -
                     name: authenticated
-                    section: development
+                    section: developer
                     position: top
-        
+       
