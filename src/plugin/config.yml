@@ -33,9 +33,13 @@ install:
     menu:
         -
             name: databrowser
-            menus: ['authenticated']
             definition:
                 path: databrowser
                 label: Data Browser
                 icon: database
+            menus:
+                -
+                    name: authenticated
+                    section: development
+                    position: top
         
