@@ -73,58 +73,44 @@ define([
             }
 
             function getData() {
-                return new Promise(function (resolve, reject) {
-                    Promise.resolve(workspaceClient.list_workspace_info({
-                        showDeleted: 0,
-                        excludeGlobal: 0
-                            // owners: [runtime.getService('session').getUsername()]
-                    }))
-                        .then(function (data) {
-                            var workspaceList = [],
-                                workspaceDb = {}, i, wsInfo;
-                            for (i = 0; i < data.length; i += 1) {
-                                wsInfo = APIUtils.workspace_metadata_to_object(data[i]);
+                return Promise.resolve(workspaceClient.list_workspace_info({
+                    showDeleted: 0,
+                    excludeGlobal: 0
+                        // owners: [runtime.getService('session').getUsername()]
+                }))
+                    .then(function (data) {
+                        var workspaceList = [],
+                            workspaceDb = {}, i, wsInfo;
+                        for (i = 0; i < data.length; i += 1) {
+                            wsInfo = APIUtils.workspace_metadata_to_object(data[i]);
 
-                                //if (Narrative.isValid(wsInfo)) {
-                                workspaceList.push(wsInfo.id);
-                                workspaceDb[wsInfo.id] = wsInfo;
-                                //}
-                            }
+                            //if (Narrative.isValid(wsInfo)) {
+                            workspaceList.push(wsInfo.id);
+                            workspaceDb[wsInfo.id] = wsInfo;
+                            //}
+                        }
 
-                            // We should now have the list of recently active narratives.
-                            // Now we sort and limit the list.
-                            // Now get the workspace details.
-                            Promise.resolve(workspaceClient.list_objects({
-                                ids: workspaceList,
-                                includeMetadata: 1
-                            }))
-                                .then(function (data) {
-                                    workspaceObjects = data.map(function (info) {
-                                        var wsObjectInfo = APIUtils.object_info_to_object(info);
-                                        return {
-                                            info: wsObjectInfo,
-                                            narrative: {
-                                                workspaceId: wsObjectInfo.wsid,
-                                                name: workspaceDb[wsObjectInfo.wsid].metadata.narrative_nice_name || 'not a narrative'
-                                            }
-                                        };
-                                    });
-                                    resolve(workspaceObjects);
-                                })
-                                .catch(function (err) {
-                                    console.log('ERROR');
-                                    console.log(err);
-                                    reject(err);
-                                })
-                                .done();
-                        })
-                        .catch(function (err) {
-                            console.log('ERROR');
-                            console.log(err);
-                            reject(err);
-                        })
-                        .done();
-                });
+                        // We should now have the list of recently active narratives.
+                        // Now we sort and limit the list.
+                        // Now get the workspace details.
+                        return [workspaceDb, Promise.resolve(workspaceClient.list_objects({
+                            ids: workspaceList,
+                            includeMetadata: 1
+                        }))];
+                    })
+                    .spread(function (workspaceDb, data) {
+                        workspaceObjects = data.map(function (info) {
+                            var wsObjectInfo = APIUtils.object_info_to_object(info);
+                            return {
+                                info: wsObjectInfo,
+                                narrative: {
+                                    workspaceId: wsObjectInfo.wsid,
+                                    name: workspaceDb[wsObjectInfo.wsid].metadata.narrative_nice_name || 'not a narrative'
+                                }
+                            };
+                        });
+                        return workspaceObjects;
+                    });
             }
 
             function attach(node) {
@@ -145,6 +131,7 @@ define([
 
             function run(params) {
                 return Promise.try(function () {
+                    var div = html.tag('div');
                     DOM.setHTML(container, 'Loading data ... ' + html.loading());
                     return getData()
                         .then(function (data) {
@@ -153,7 +140,16 @@ define([
                             if (rendered.afterAttach) {
                                 rendered.afterAttach();
                             }
-                        });
+                        })
+                        .catch(function (err) {
+                            DOM.setHTML(container, html.makePanel({
+                                title: 'Error',
+                                content: div([
+                                    err.message
+                                ])
+                            }));
+                            
+                        })
                 });
             }
 
