@@ -72,7 +72,8 @@ define([
                 };
             }
 
-            function getData() {
+            function getData(params) {
+
                 return Promise.resolve(workspaceClient.list_workspace_info({
                     showDeleted: 0,
                     excludeGlobal: 0
@@ -93,10 +94,14 @@ define([
                         // We should now have the list of recently active narratives.
                         // Now we sort and limit the list.
                         // Now get the workspace details.
-                        return [workspaceDb, Promise.resolve(workspaceClient.list_objects({
+                        var listObjectsParams = {
                             ids: workspaceList,
                             includeMetadata: 1
-                        }))];
+                        };
+                        if (params.type) {
+                            listObjectsParams.type = params.type;
+                        }
+                        return [workspaceDb, Promise.resolve(workspaceClient.list_objects(listObjectsParams))];
                     })
                     .spread(function (workspaceDb, data) {
                         workspaceObjects = data.map(function (info) {
@@ -133,7 +138,9 @@ define([
                 return Promise.try(function () {
                     var div = html.tag('div');
                     DOM.setHTML(container, 'Loading data ... ' + html.loading());
-                    return getData()
+                    console.log('PARAMS');
+                    console.log(params);
+                    return getData(params)
                         .then(function (data) {
                             var rendered = render(data);
                             DOM.setHTML(container, rendered.content);
@@ -148,7 +155,7 @@ define([
                                     err.message
                                 ])
                             }));
-                            
+
                         })
                 });
             }

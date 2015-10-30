@@ -29,6 +29,8 @@ install:
     routes:
         -
             path: ['databrowser']
+            queryParams:
+                type: {}
             widget: databrowser_panel
     menu:
         -
@@ -37,9 +39,5 @@ install:
                 path: databrowser
                 label: Data Browser
                 icon: database
-            menus:
-                -
-                    name: authenticated
-                    section: developer
-                    position: top
+            
        
