@@ -46,9 +46,9 @@ define([
                         return [
                             a({href: '#dataview/' + objectRef}, object.info.name),
                             type.module,
-                            a({href: '#spec/type/' + runtime.service('types').makeTypeId(type)}, type.name),
-                            runtime.service('types').makeVersion(type),
-                            runtime.service('types').getIcon({
+                            a({href: '#spec/type/' + runtime.service('type').makeTypeId(type)}, type.name),
+                            runtime.service('type').makeVersion(type),
+                            runtime.service('type').getIcon({
                                 type: type,
                                 size: 'medium'
                             }).html,
