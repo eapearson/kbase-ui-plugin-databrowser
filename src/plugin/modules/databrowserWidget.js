@@ -138,8 +138,6 @@ define([
                 return Promise.try(function () {
                     var div = html.tag('div');
                     DOM.setHTML(container, 'Loading data ... ' + html.loading());
-                    console.log('PARAMS');
-                    console.log(params);
                     return getData(params)
                         .then(function (data) {
                             var rendered = render(data);
