@@ -21,7 +21,7 @@ define([
             function render() {
                 return {
                     title: 'Data Browser',
-                    content: div({class: 'kb-panel-databrowser'}, [
+                    content: div({class: 'kb-panel-databrowser container-fluid'}, [
                         div({class: 'row'}, [
                             div({class: 'col-md-12'}, [
                                 html.bsPanel('Data Browser Widget', div({id: widgetSet.addWidget('databrowser_widget')}))
