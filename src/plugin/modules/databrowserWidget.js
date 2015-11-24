@@ -10,10 +10,10 @@
 define([
     'jquery',
     'promise',
-    'kb_common_dom',
-    'kb_common_html',
+    'kb/common/dom',
+    'kb/common/html',
     'kb_service_utils',
-    'kb_common_utils',
+    'kb/common/utils',
     'kb_service_workspace',
     'datatables_bootstrap'
 ],
