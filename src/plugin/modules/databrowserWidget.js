@@ -12,9 +12,9 @@ define([
     'promise',
     'kb/common/dom',
     'kb/common/html',
-    'kb_service_utils',
+    'kb/service/utils',
     'kb/common/utils',
-    'kb_service_workspace',
+    'kb/service/client/workspace',
     'datatables_bootstrap'
 ],
     function ($, Promise, DOM, html, APIUtils, Utils, WorkspaceClient) {
