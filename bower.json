@@ -1,0 +1,27 @@
+{
+    "name": "kbase-ui-plugin-databrowser",
+    "description": "A plugin for listing, searching, and browsing KBase data objects",
+    "keywords": ["kbase", "widget"],
+    "author": [
+        "eapearson@lbl.gov"
+    ],
+    "moduleType": "kbase-ui-plugin",
+    "main": "src/plugin/config.yml",
+    "ignore": [
+        ".gitignore"
+    ],
+    "devDependencies": {
+        "jquery": "^2.1.0",
+        "bluebird": "^3.0.0",
+        "kbase-common-js": "^0.1.0",
+        "kbase-ui-widget": "^0.1.0",
+        "datatables-bootstrap3": "^0.4.0"
+    },
+    "dependencies": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/kbase/kbase-ui-plugin-databrowser"
+    },
+    "license": "LICENSE.md"
+}
