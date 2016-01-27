@@ -35,7 +35,7 @@ define([
 
             // Widget API
             function init() {
-                 return Promise.try(function () {
+                return Promise.try(function () {
                     return widgetSet.init(config);
                 });
             }

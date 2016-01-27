@@ -19,6 +19,26 @@ define([
 ],
     function ($, Promise, DOM, html, APIUtils, Utils, WorkspaceClient) {
         'use strict';
+        
+        function parseDate(date) {
+            var parts = date.split(/[-T:+]/);
+            if (parts.length !== 7) {
+                throw new Error('Invalid date string');
+            }
+            var year = parseInt(parts[0], 10),
+                month = parseInt(parts[1], 10),
+                day = parseInt(parts[2], 10),
+                hour = parseInt(parts[3], 10),
+                minute = parseInt(parts[4], 10),
+                seconds = parseInt(parts[5], 10),
+                offset = parseInt(parts[6], 10);
+
+            if (offset !== 0) {
+                throw new Error('Date is not UTC');
+            }
+
+            return new Date(Date.UTC(year, month - 1, day, hour, seconds));
+        }
 
         var widget = function (config) {
             var mount, container, runtime = config.runtime;
@@ -55,7 +75,7 @@ define([
                             a({href: '#taxontest/lineage/' + objectRef}, 'Lineage'),
                             a({href: '/narrative/' + object.narrative.workspaceId + '/' + object.info.id}, object.narrative.name),
                             object.info.version,
-                            Utils.niceElapsedTime(object.info.save_date)
+                            parseDate(object.info.save_date).toLocaleString()
                         ];
                     });
 
