@@ -13,12 +13,11 @@
     "devDependencies": {
         "jquery": "^2.1.0",
         "bluebird": "^3.0.0",
-        "kbase-common-js": "^1.0.0",
+        "kbase-common-js": "^2.5.0",
         "kbase-ui-widget": "^1.0.0",
-        "datatables-bootstrap3": "^0.4.0"
+        "datatables-bootstrap3": "^1.0.0"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "repository": {
         "type": "git",
         "url": "git://github.com/kbase/kbase-ui-plugin-databrowser"
